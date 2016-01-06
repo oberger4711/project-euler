@@ -20,9 +20,11 @@ processed = {}
 for i in range(1, TOP):
     di = d(i)
     if (di != i) and (not processed.has_key(di)):
-        amicableSum += i
-        if di < TOP:
-            amicableSum += di
+        ddi = d(di)
+        if ddi == i:
+            amicableSum += i
+            if di < TOP:
+                amicableSum += di
     processed[i] = True
 
 print amicableSum
