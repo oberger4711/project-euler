@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 # https://projecteuler.net/problem=24
-# Swap most right item with most right smaller item and sort the range on the right of it.
+# Swap first item from the right with first smaller item from the right and sort the range on the right.
 # In some way similar to bubblesort.
 
 import math
