@@ -3,6 +3,10 @@
 from math import sqrt
 
 # https://projecteuler.net/problem=41
+# Pretty slow solution.
+# Simple stupid brute force.
+# Much room for optimisation.
+# Highest result that was calculated in a couple of minutes was correct answer ;).
 
 digits = []
 for i in range(1, 10):
@@ -22,7 +26,7 @@ def isPrime(n):
     return True
 
 relevant = xrange(2143, 987654322)
-for n in reversed(relevant):
+for n in relevant:
     if (isPandigital(str(n)) and isPrime(n)):
         print n
 
