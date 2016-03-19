@@ -7,40 +7,40 @@ latestPenIndex = 2
 latestPenNum = 5
 lookupTable = { 1 : True, 5 : True }
 
-def isPenNum(i):
+def isPenNum(n):
     global latestPenIndex
     global latestPenNum
     global lookupTable
-    res = False
-    if (i <= latestPenIndex):
-        res = (i in lookupTable)
-    else:
-        while (latestPenNum < i):
-            latestPenIndex += 1
-            latestPenNum = calcPenNum(latestPenIndex)
-            lookupTable[latestPenNum] = True
-            if (latestPenNum == i):
-                res = True
-    return res
+    while (latestPenNum < n):
+        calcPenNum(latestPenIndex + 1)
+
+    return (n in lookupTable)
 
 def calcPenNum(i):
-    if (latestPenIndex < i):
+    global latestPenIndex
+    global latestPenNum
+    global lookupTable
+    while (latestPenIndex < i):
+        latestPenIndex += 1
+        latestPenNum = latestPenIndex * (3 * latestPenIndex - 1) / 2
+        lookupTable[latestPenNum] = True
 
     return i * (3 * i - 1) / 2
 
-highest = 12
+highest = 5
+highestIndex = 2
+threshold = 0
 thresholdIndex = -1
 printStep = 0
 found = False
 while True:
     thresholdIndex += 1
-    threshold = lookupTable.keys()[thresholdIndex]
-    if (threshold > printStep):
-        print threshold
-        printStep += 10000000
+    threshold = calcPenNum(thresholdIndex)
+    print threshold
     # Increase upper limit if necessary.
-    while (isPenNum(highest + threshold)):
-        highest = highest + threshold
+    while (calcPenNum(highestIndex + 1) - calcPenNum(highestIndex) <= threshold):
+        highestIndex += 1
+        highest = calcPenNum(highestIndex)
     # Find pairs with this abs difference.
     for n in lookupTable.keys():
         if (n == highest):
