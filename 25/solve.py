@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # https://projecteuler.net/problem=25
-# TODO: Description of algorithm.
+# Simple dynamic programming algorithm.
 
 def fib():
     yield 1, 1
