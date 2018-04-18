@@ -3,7 +3,7 @@
 import math
 
 # https://projecteuler.net/problem=16
-# Iterate over string characters.
+# Use modulo to get digits.
 
 num = 2 ** 1000
 
