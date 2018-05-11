@@ -9,7 +9,7 @@
 
 from math import factorial
 
-print "Filling the lookup table..."
+print("Filling the lookup table...")
 cache = {}
 for i in range(0, 10):
     cache[i] = factorial(i)
@@ -21,17 +21,17 @@ def crossFactorial(num):
         num = num / 10
     return res
 
-print "Searching limit..."
+print("Searching limit...")
 limit = 9
 while (crossFactorial(limit) > limit):
     limit *= 10
     limit += 9
-print "Found limit at", limit
+print("Found limit at {}.".format(limit))
 
-print "Brute forcing curious numbers..."
+print("Brute forcing curious numbers...")
 curiousSum = 0
 for i in range(10, limit):
     if (crossFactorial(i) == i):
         curiousSum += i
-        print i
-print "Sum is", curiousSum
+        print(i)
+print("Sum is {}.".format(curiousSum))
