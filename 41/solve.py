@@ -1,33 +1,24 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 from math import sqrt
+import utils
+import itertools
 
 # https://projecteuler.net/problem=41
-# Pretty slow solution.
-# Simple stupid brute force.
-# Much room for optimisation.
-# Highest result that was calculated in a couple of minutes was correct answer ;).
+# Try out all permutations starting with the longest number.
 
 digits = []
 for i in range(1, 10):
     digits.append(str(i))
-print "Setup digits", digits
-def isPandigital(nString):
-    for digitStr in digits[:len(nString)]:
-        if (digitStr not in nString):
-            return False
-    return True
 
-def isPrime(n):
-    # Should only go up to sqrt n.
-    for i in xrange(2, int(sqrt(n)) + 1):
-        if (n % i == 0):
-            return False
-    return True
+for length in range(9, 3, -1):
+    largest_or_neg_one = -1
+    sub_digits = digits[:length]
+    for permutation in itertools.permutations(sub_digits):
+        num = int("".join(permutation))
+        if utils.isPrime(num):
+            largest_or_neg_one = max(largest_or_neg_one, num)
+    if largest_or_neg_one != -1:
+        break
 
-relevant = xrange(2143, 987654322)
-for n in relevant:
-    if (isPandigital(str(n)) and isPrime(n)):
-        print n
-
-print "Done."
+print("Largest: {}".format(largest_or_neg_one))
