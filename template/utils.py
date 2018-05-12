@@ -35,7 +35,30 @@ def isPalindrome(v):
     return s == s[::-1]
 
 def naturalNumbers(start=0, step=1):
+    """ This is an endless range().
+    :param start: number to start with
+    :param step: step to add after each iteration.
+    """
     i = start
     while True:
         yield i
         i += step
+
+def primeFactors(n: int):
+    """ Finds the prime factors of the given number.
+    :param n: an integer number
+    :return list of prime factors.
+    """
+    res = []
+    _primeFactors(n, res)
+    return res
+
+def _primeFactors(n: int, out_res):
+    for div in range(2, int(math.sqrt(n) + 1)):
+        if n % div == 0:
+            qt = n // div
+            _primeFactors(qt, out_res)
+            _primeFactors(div, out_res)
+            return
+    # It is already a prime.
+    out_res.append(n)
