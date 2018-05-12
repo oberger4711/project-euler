@@ -62,3 +62,13 @@ def _primeFactors(n: int, out_res):
             return
     # It is already a prime.
     out_res.append(n)
+
+def arePermutationsShort(a, b):
+    """ Returns True if (a) and str(b) are permutations of each other.
+    Use this for small objects as strings. It is O(n log n) worst case.
+    :param a: first candidate to compare
+    :param b: other candidate to compare
+    """
+    str_a = str(a)
+    str_b = str(b)
+    return sorted(str_a) == sorted(str_b)
