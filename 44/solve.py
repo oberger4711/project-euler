@@ -1,19 +1,21 @@
 #!/usr/bin/python
 
 # https://projecteuler.net/problem=44
-# TODO: Description of algorithm.
+# Iteratively expand the diff threshold and search for hits in the cached pentagon numbers.
+# This is extremely slow. Takes about 12 minutes.
 
 latestPenIndex = 2
 latestPenNum = 5
 lookupTable = { 1 : True, 5 : True }
 
 def isPenNum(n):
+    if n < 1:
+        return False
     global latestPenIndex
     global latestPenNum
     global lookupTable
     while (latestPenNum < n):
         calcPenNum(latestPenIndex + 1)
-
     return (n in lookupTable)
 
 def calcPenNum(i):
@@ -24,30 +26,25 @@ def calcPenNum(i):
         latestPenIndex += 1
         latestPenNum = latestPenIndex * (3 * latestPenIndex - 1) / 2
         lookupTable[latestPenNum] = True
-
-    return i * (3 * i - 1) / 2
+    return i * (3 * i - 1) // 2
 
 highest = 5
 highestIndex = 2
-threshold = 0
-thresholdIndex = -1
-printStep = 0
+diffIndex = -1
 found = False
-while True:
-    thresholdIndex += 1
-    threshold = calcPenNum(thresholdIndex)
-    print threshold
+while not found:
+    diffIndex += 1
+    diff = calcPenNum(diffIndex)
+    print diff
     # Increase upper limit if necessary.
-    while (calcPenNum(highestIndex + 1) - calcPenNum(highestIndex) <= threshold):
+    while (calcPenNum(highestIndex + 1) - calcPenNum(highestIndex) < diff):
         highestIndex += 1
         highest = calcPenNum(highestIndex)
     # Find pairs with this abs difference.
-    for n in lookupTable.keys():
-        if (n == highest):
-            break
-        m = n + threshold
-        if (isPenNum(m)):
-            pair = (n, m)
-            if (isPenNum(pair[0] + pair[1])):
-                print "Pair:", pair, "Diff:", pair[1] - pair[0]
+    for i in range(1, highestIndex):
+        a = calcPenNum(i)
+        b = a + diff
+        if isPenNum(b) and isPenNum(a + b):
+                print "HIT! Pair:", a, b, "Diff:", b - a
                 found = True
+                break
